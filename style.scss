@@ -25,6 +25,10 @@
     transition: 1s width;
     transition-timing-function: cubic-bezier(0.6, 0.06, 0.34, 1);
 
+    * {
+      transition: 1s all;
+    }
+
     .image {
       width: 15vw;
       height: 70%;
@@ -50,6 +54,16 @@
       display: none;
     }
 
+    .arrow {
+      color: white;
+      font-size: 35px;
+      font-weight: 500;
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
     .button {
       height: 50px;
       padding: 0 40px;
@@ -61,27 +75,49 @@
       align-items: center;
       justify-content: center;
       margin-top: 35px;
+      color: white;
     }
 
     &.box1 {
       background: #0092d2;
+      .arrow {
+        right: 20px;
+      }
     }
 
     &.box2 {
       background: #ffab0f;
-    }
-
-    &:hover {
-      width: 65%;
-      .image {
-        height: 80%;
+      .arrow {
+        left: 20px;
       }
     }
   }
-  &:has(.box:hover) .box:not(:hover) {
+
+  &:not(:has(:checked)):has(.box:hover) .box:not(:has(:hover)) {
     width: 35%;
-    .image {
-      height: 50%;
+  }
+
+  &:not(:has(:checked)):has(.box:hover) .box:hover {
+    width: 65%;
+  }
+
+  &:has(:checked) .box:has(:checked) {
+    width: 90%;
+    .arrow {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  &:has(:checked) .box:not(:has(:checked)) {
+    width: 10%;
+
+    & *:not(.arrow) {
+      opacity: 0;
+    }
+    .arrow {
+      transform: rotateY(180deg) translateY(-50%);
+      transform-origin: center center;
     }
   }
 }
