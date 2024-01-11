@@ -16,14 +16,24 @@
 
   .box {
     width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
     position: relative;
     z-index: 1;
     transition: 1s width;
     transition-timing-function: cubic-bezier(0.6, 0.06, 0.34, 1);
+
+    .inner {
+      width: 50vw;
+      display: flex;
+      padding: 0 10vw;
+      align-items: start;
+      justify-content: center;
+      flex-direction: column;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      align-self: start;
+      transition-delay: 1s;
+    }
 
     * {
       transition: 1s all;
@@ -32,15 +42,20 @@
     .image {
       width: 15vw;
       height: 70%;
-      background: red;
-      opacity: 0.2;
+      // background: red;
+      // opacity: 0.2;
       position: absolute;
       top: 50%;
       left: 50%;
       z-index: -1;
       transform: translate(-50%, -50%);
-      transition: 1s height;
+      transition: 1s height, 1s left, 1s opacity;
       transition-timing-function: cubic-bezier(0.6, 0.06, 0.34, 1);
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
 
     h1 {
@@ -80,6 +95,9 @@
 
     &.box1 {
       background: #0092d2;
+      .inner {
+        right: 0;
+      }
       .arrow {
         right: 20px;
       }
@@ -87,6 +105,9 @@
 
     &.box2 {
       background: #ffab0f;
+      .inner {
+        left: 0;
+      }
       .arrow {
         left: 20px;
       }
@@ -94,15 +115,24 @@
   }
 
   &:not(:has(:checked)):has(.box:hover) .box:not(:has(:hover)) {
-    width: 35%;
+    width: 40%;
   }
 
   &:not(:has(:checked)):has(.box:hover) .box:hover {
-    width: 65%;
+    width: 60%;
   }
 
   &:has(:checked) .box:has(:checked) {
     width: 90%;
+
+    .inner {
+      width: calc(100vw - 10%);
+      transition-delay: 0s;
+    }
+    .image {
+      left: calc(100% - 15vw);
+    }
+
     .arrow {
       opacity: 0;
       visibility: hidden;
@@ -111,8 +141,13 @@
 
   &:has(:checked) .box:not(:has(:checked)) {
     width: 10%;
+    perspective: 250px;
 
-    & *:not(.arrow) {
+    .image {
+      opacity: 0;
+    }
+
+    .inner *:not(.arrow) {
       opacity: 0;
     }
     .arrow {

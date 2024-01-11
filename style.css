@@ -15,14 +15,23 @@
 }
 .container .box {
   width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
   position: relative;
   z-index: 1;
   transition: 1s width;
   transition-timing-function: cubic-bezier(0.6, 0.06, 0.34, 1);
+}
+.container .box .inner {
+  width: 50vw;
+  display: flex;
+  padding: 0 10vw;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  align-self: start;
+  transition-delay: 1s;
 }
 .container .box * {
   transition: 1s all;
@@ -30,15 +39,17 @@
 .container .box .image {
   width: 15vw;
   height: 70%;
-  background: red;
-  opacity: 0.2;
   position: absolute;
   top: 50%;
   left: 50%;
   z-index: -1;
   transform: translate(-50%, -50%);
-  transition: 1s height;
+  transition: 1s height, 1s left, 1s opacity;
   transition-timing-function: cubic-bezier(0.6, 0.06, 0.34, 1);
+}
+.container .box .image img {
+  width: 100%;
+  height: 100%;
 }
 .container .box h1 {
   font-size: 70px;
@@ -74,23 +85,36 @@
 .container .box.box1 {
   background: #0092d2;
 }
+.container .box.box1 .inner {
+  right: 0;
+}
 .container .box.box1 .arrow {
   right: 20px;
 }
 .container .box.box2 {
   background: #ffab0f;
 }
+.container .box.box2 .inner {
+  left: 0;
+}
 .container .box.box2 .arrow {
   left: 20px;
 }
 .container:not(:has(:checked)):has(.box:hover) .box:not(:has(:hover)) {
-  width: 35%;
+  width: 40%;
 }
 .container:not(:has(:checked)):has(.box:hover) .box:hover {
-  width: 65%;
+  width: 60%;
 }
 .container:has(:checked) .box:has(:checked) {
   width: 90%;
+}
+.container:has(:checked) .box:has(:checked) .inner {
+  width: calc(100vw - 10%);
+  transition-delay: 0s;
+}
+.container:has(:checked) .box:has(:checked) .image {
+  left: calc(100% - 15vw);
 }
 .container:has(:checked) .box:has(:checked) .arrow {
   opacity: 0;
@@ -98,8 +122,12 @@
 }
 .container:has(:checked) .box:not(:has(:checked)) {
   width: 10%;
+  perspective: 250px;
 }
-.container:has(:checked) .box:not(:has(:checked)) *:not(.arrow) {
+.container:has(:checked) .box:not(:has(:checked)) .image {
+  opacity: 0;
+}
+.container:has(:checked) .box:not(:has(:checked)) .inner *:not(.arrow) {
   opacity: 0;
 }
 .container:has(:checked) .box:not(:has(:checked)) .arrow {
