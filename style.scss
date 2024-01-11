@@ -10,9 +10,11 @@
 
 .container {
   height: 100vh;
+  width: 100vw;
   background: blue;
   display: flex;
   overflow: hidden;
+  position: relative;
 
   .box {
     width: 50%;
@@ -42,8 +44,6 @@
     .image {
       width: 15vw;
       height: 70%;
-      // background: red;
-      // opacity: 0.2;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -69,6 +69,13 @@
       display: none;
     }
 
+    .info {
+      opacity: 0;
+      color: white;
+      transition: 2s all;
+      position: absolute;
+    }
+
     .arrow {
       color: white;
       font-size: 35px;
@@ -91,6 +98,8 @@
       justify-content: center;
       margin-top: 35px;
       color: white;
+      cursor: pointer;
+      z-index: 5;
     }
 
     &.box1 {
@@ -128,9 +137,21 @@
     .inner {
       width: calc(100vw - 10%);
       transition-delay: 0s;
+
+      .button {
+        // animation-name: hideTag;
+        animation: 1s hideTag ease-in;
+        opacity: 0;
+        display: none;
+      }
     }
     .image {
       left: calc(100% - 15vw);
+    }
+    .info {
+      // display: block;
+      opacity: 1;
+      position: relative;
     }
 
     .arrow {
@@ -154,5 +175,14 @@
       transform: rotateY(180deg) translateY(-50%);
       transform-origin: center center;
     }
+  }
+}
+
+@keyframes hideTag {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
